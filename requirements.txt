@@ -1,1 +1,5 @@
 1. venv
+
+2. pandas
+
+3. flask
