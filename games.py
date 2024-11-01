@@ -3,7 +3,7 @@ import pandas as pd
 # CSV File
 
 try:
-    df = pd.read_csv('/Users/linus/Bundesliga-Predictor/Bundesliga-Predictor/Datasets/2005-2022.csv')
+    df = pd.read_csv('/Users/linus/Bundesliga-Predictor/Bundesliga-Predictor/Datasets/2005-2022.csv')  # Pfad selbst anpassen
 
     # Column names
     selected_columns = [
@@ -21,7 +21,7 @@ try:
     ]
 
     # Load only the specific columns
-    df = pd.read_csv('/Users/linus/Bundesliga-Predictor/Bundesliga-Predictor/Datasets/2005-2022.csv', usecols=selected_columns)
+    df = pd.read_csv('/Users/linus/Bundesliga-Predictor/Bundesliga-Predictor/Datasets/2005-2022.csv', usecols=selected_columns)  # Pfad selbst anpassen
 
 
 except FileNotFoundError:
