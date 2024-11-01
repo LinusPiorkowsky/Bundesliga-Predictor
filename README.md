@@ -16,3 +16,11 @@ The app provides Bundesliga fans with an easy way to understand team trends and 
 Goals:
 Simple and Functional: Develop a straightforward app with easy-to-understand features, focusing on team comparisons and simple predictions.
 User-Friendly Interface: Make a clean, basic interface that anyone can use without technical knowledge.
+
+
+Notes:
+
+1. Datei ändern
+2. Datei bereitsstellen
+3. Commit schreiben und commiten
+4. Sync Changes
