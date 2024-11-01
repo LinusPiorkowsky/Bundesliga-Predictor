@@ -1,3 +1,11 @@
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL
+);
+
 CREATE TABLE Games (
     game_id INTEGER PRIMARY KEY AUTOINCREMENT,
     match_date TEXT,
@@ -20,6 +28,3 @@ CREATE TABLE Teams (
     team_name TEXT UNIQUE NOT NULL,
     description TEXT
 );
-
-
-

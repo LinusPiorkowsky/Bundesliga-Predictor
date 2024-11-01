@@ -1,33 +1,36 @@
-import click
-import os
 import sqlite3
+import click
 from flask import current_app, g
 
-def get_db_con(pragma_foreign_keys = True):
-    if 'db_con' not in g:
-        g.db_con = sqlite3.connect(
+# Connect to the database
+def get_db():
+    if 'db' not in g:
+        g.db = sqlite3.connect(
             current_app.config['DATABASE'],
             detect_types=sqlite3.PARSE_DECLTYPES
         )
-        g.db_con.row_factory = sqlite3.Row
-        if pragma_foreign_keys:
-            g.db_con.execute('PRAGMA foreign_keys = ON;')
-    return g.db_con
+        g.db.row_factory = sqlite3.Row
+    return g.db
 
-def close_db_con(e=None):
-    db_con = g.pop('db_con', None)
-    if db_con is not None:
-        db_con.close()
-        
-@click.command('init-db')
+# Close the database connection
+def close_db(e=None):
+    db = g.pop('db', None)
+    if db is not None:
+        db.close()
+
+# Initialize the database tables
 def init_db():
-    try:
-        os.makedirs(current_app.instance_path)
-    except OSError:
-        pass
-    db_con = get_db_con()
-    with current_app.open_resource('sql/drop_tables.sql') as f:
-        db_con.executescript(f.read().decode('utf8'))
-    with current_app.open_resource('sql/create_tables.sql') as f:
-        db_con.executescript(f.read().decode('utf8'))
-    click.echo('Database has been initialized.')
+    db = get_db()
+    with current_app.open_resource('/Users/linus/Bundesliga-Predictor/Bundesliga-Predictor/sql/create_tables.sql') as f: # Pfad selbst anpassen
+        db.executescript(f.read().decode('utf8'))
+
+# Initialize the database 
+@click.command('init-db')
+def init_db_command():
+    init_db()
+    click.echo('Initialized the database.')
+
+# Register the database functions with the Flask app
+def init_app(app):
+    app.teardown_appcontext(close_db)
+    app.cli.add_command(init_db_command)
